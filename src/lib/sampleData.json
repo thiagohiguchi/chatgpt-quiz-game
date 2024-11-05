@@ -2,51 +2,101 @@
   {
     "question": "What is the largest mammal on Earth?",
     "correctAnswer": 2,
-    "answers": ["Elephant", "Giraffe", "Blue Whale", "Lion"]
+    "answers": [
+      "Elephant",
+      "Giraffe",
+      "Blue Whale",
+      "Lion"
+    ]
   },
   {
     "question": "Which planet is known as the Red Planet?",
     "correctAnswer": 1,
-    "answers": ["Venus", "Mars", "Jupiter", "Saturn"]
+    "answers": [
+      "Venus",
+      "Mars",
+      "Jupiter",
+      "Saturn"
+    ]
   },
   {
     "question": "What is the capital city of Japan?",
     "correctAnswer": 0,
-    "answers": ["Tokyo", "Beijing", "Seoul", "Bangkok"]
+    "answers": [
+      "Tokyo",
+      "Beijing",
+      "Seoul",
+      "Bangkok"
+    ]
   },
   {
     "question": "In the movie 'Finding Nemo', what kind of fish is Nemo?",
     "correctAnswer": 3,
-    "answers": ["Clownfish", "Blue Tang", "Angelfish", "Anemonefish"]
+    "answers": [
+      "Clownfish",
+      "Blue Tang",
+      "Angelfish",
+      "Anemonefish"
+    ]
   },
   {
     "question": "What is the process by which plants make their food?",
     "correctAnswer": 1,
-    "answers": ["Hibernation", "Photosynthesis", "Respiration", "Germination"]
+    "answers": [
+      "Hibernation",
+      "Photosynthesis",
+      "Respiration",
+      "Germination"
+    ]
   },
   {
-    "question": "Which mathematical symbol represents division?",
-    "correctAnswer": 0,
-    "answers": ["/", "+", "-", "x"]
+    "question": "Which nut is a popular ingredient in pesto sauce?",
+    "correctAnswer": 3,
+    "answers": [
+      "Peanut",
+      "Almond",
+      "Cashew",
+      "Pine Nut"
+    ]
   },
   {
     "question": "Which country is famous for the invention of pizza?",
     "correctAnswer": 2,
-    "answers": ["France", "Spain", "Italy", "Greece"]
+    "answers": [
+      "France",
+      "Spain",
+      "Italy",
+      "Greece"
+    ]
   },
   {
     "question": "How many bones are there in the human body?",
     "correctAnswer": 3,
-    "answers": ["206", "150", "300", "206"]
+    "answers": [
+      "206",
+      "150",
+      "300",
+      "206"
+    ]
   },
   {
     "question": "Which gas do plants need for photosynthesis?",
     "correctAnswer": 1,
-    "answers": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"]
+    "answers": [
+      "Oxygen",
+      "Carbon Dioxide",
+      "Nitrogen",
+      "Hydrogen"
+    ]
   },
   {
     "question": "What is the only mammal capable of true flight?",
     "correctAnswer": 0,
-    "answers": ["Bat", "Squirrel", "Penguin", "Kangaroo"]
+    "answers": [
+      "Bat",
+      "Squirrel",
+      "Penguin",
+      "Kangaroo"
+    ]
   }
 ]
