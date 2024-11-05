@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 272 49% 98%;
+    --foreground: 272 5% 10%;
+    --card: 272 9% 100%;
+    --card-foreground: 272 5% 15%;
+    --popover: 272 9% 100%;
+    --popover-foreground: 272 95% 10%;
+    --primary: 272 49.1% 41.6%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 272 10% 90%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 272 25% 90%;
+    --muted-foreground: 272 49% 40%;
+    --accent: 234 10% 90%;
+    --accent-foreground: 272 5% 15%;
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 272 5% 100%;
+    --border: 272 49% 85%;
+    --input: 272 49% 85%;
+    --ring: 272 49.1% 41.6%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 272 49% 10%;
+    --foreground: 272 5% 100%;
+    --card: 272 9% 10%;
+    --card-foreground: 272 5% 100%;
+    --popover: 272 10% 5%;
+    --popover-foreground: 272 5% 100%;
+    --primary: 272 49.1% 41.6%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 272 10% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 272 25% 20%;
+    --muted-foreground: 272 49% 70%;
+    --accent: 234 10% 25%;
+    --accent-foreground: 272 5% 95%;
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 272 5% 100%;
+    --border: 272 49% 25%;
+    --input: 272 49% 25%;
+    --ring: 272 49.1% 41.6%;
+    --radius: 0.5rem;
+  }
+
+  html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @keyframes slide {
+    100% {
+      background-position:
+        50px 0,
+        125px 25px;
+    }
+  }
+
+  main {
+    @apply min-h-screen w-full bg-gray-900;
+
+    background-image: radial-gradient(
+        hsla(0, 0%, 84.3%, 0.25) 1px,
+        transparent 0
+      ),
+      radial-gradient(hsla(0, 0%, 84.3%, 0.1) 1px, transparent 0);
+    background-size: 50px 50px;
+    background-position:
+      0 0,
+      25px 25px;
+    -webkit-animation: slide 2s linear infinite;
+    animation: slide 4s linear infinite;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .layout {
+    @apply container mx-auto relative w-9/10;
+  }
+}
+
+@font-face {
+  font-family: "Chewy";
+  src: url("/fonts/Chewy-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
