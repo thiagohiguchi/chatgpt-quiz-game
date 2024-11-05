@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Progress } from '@/components/atoms/progress';
 import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
@@ -29,12 +29,6 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
 
     // Set feedback mode to true, which pauses the timer
     setShowingFeedback(true);
-
-    // If is last show scoreboard
-    // if (currentQuestionIndex === questions.length - 1) {
-    //   console.log("foi");
-    //   moveToNextQuestion();
-    // }
 
     // Show feedback for 2 seconds, then move to the next question
     setTimeout(() => {
