@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Progress } from '@/components/atoms/progress';
 import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
+import { TIME_TO_ANSWER_IN_MS } from '@/lib/constants';
 import { QuizQuestion } from '@/lib/interfaces';
 import { cn } from '@/lib/utils';
 
@@ -12,7 +13,7 @@ interface QuizQuestionsProps {
 const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userScore, setUserScore] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(15000); // Timer starts at 30 seconds (15000 ms)
+  const [timeLeft, setTimeLeft] = useState<number>(TIME_TO_ANSWER_IN_MS); // Timer starts at 30 seconds (15000 ms)
   const [showingFeedback, setShowingFeedback] = useState<boolean>(false); // Feedback display
   const [feedbackResult, setFeedbackResult] = useState<boolean>(false); // Feedback resut
   const { user, setUser } = useUser();
@@ -38,7 +39,7 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   };
 
   const moveToNextQuestion = () => {
-    setTimeLeft(15000); // Reset timer for the next question
+    setTimeLeft(TIME_TO_ANSWER_IN_MS); // Reset timer for the next question
 
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -83,7 +84,7 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
       <div className="fixed top-0 left-0 w-full font-heading bg-black">
         <div className="layout">
           <div className="">
-            <Progress value={100 - (timeLeft / 15000) * 100} />
+            <Progress value={100 - (timeLeft / TIME_TO_ANSWER_IN_MS) * 100} />
           </div>
           <div className="flex flex-row justify-between py-2 text-white text-lg">
             <div className="">
