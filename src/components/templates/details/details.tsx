@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 
 import { Button } from '@/components/atoms/button';
 import {
@@ -19,18 +19,23 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
   const { user, setUser } = useUser();
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = event.target.value;
-    const isValid = /^[a-zA-Z0-9]+$/.test(newName);
+  const validateUsername = (name: string) => {
+    const isValid = /^[a-zA-Z0-9]+$/.test(name);
 
     // Validate the input
-    if (newName.trim() === '') {
+    if (name.trim() === '') {
       setValidationError('Username cannot be empty.');
     } else if (!isValid) {
       setValidationError('Username can only contain letters and numbers.');
     } else {
       setValidationError(null);
     }
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = event.target.value;
+
+    validateUsername(newName);
 
     // Update user state if valid or allow empty input for clearing
     setUser((prevUser) => ({ ...prevUser, name: newName }));
@@ -42,6 +47,10 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
       setActiveComponent('quiz');
     }
   };
+
+  useEffect(() => {
+    validateUsername(user.name);
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 lg:gap-6 items-center justify-center min-h-full text-white">

@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/atoms/button';
 import { Spinner } from '@/components/atoms/spinner';
 import Scoreboard from '@/components/molecules/scoreboard';
 import QuizQuestions from '@/components/organisms/quizQuestions';
 import { useUser } from '@/contexts/userContext';
+import { useToast } from '@/hooks/use-toast';
 import { PROMPT } from '@/lib/constants';
 import {
   ActiveComponentProps,
@@ -13,17 +14,18 @@ import {
   UserState,
 } from '@/lib/interfaces';
 import fallbackQuestions from '@/lib/sampleData.json';
+import { getRandomThemesAsString } from '@/lib/utils';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
   const [questions, setQuestions] = useState<UserState[]>([]);
   const [rankings, setRankings] = useState<UserState[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // State to control re-fetching
-  const [fetchAgain, setFetchAgain] = useState<boolean>(false); // State to control re-fetching
+  const hasFetched = useRef(false); // Ref to track if data has been fetched
   const { user, setUser } = useUser();
+  const { toast } = useToast();
   const sampleQuestions: QuizQuestion[] = fallbackQuestions;
   const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
-  // // Set up your OpenAI API key
   const fetchQuestions = async (): Promise<string[]> => {
     try {
       const response = await axios.post(
@@ -32,7 +34,7 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
           model: 'gpt-3.5-turbo',
           messages: [
             { role: 'system', content: 'You are a helpful assistant.' },
-            { role: 'user', content: PROMPT },
+            { role: 'user', content: `${PROMPT}${getRandomThemesAsString()}` },
           ],
         },
         {
@@ -48,29 +50,31 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
       // Attempt to parse the response if it's a JSON array
       const questions: QuizQuestion[] = JSON.parse(messageContent);
 
-      console.log('questions', questions);
-      // If parsing fails, return a default array or handle the error as needed
       return Array.isArray(questions) ? questions : [];
     } catch (error) {
-      console.error('Error fetching questions:', error);
+      toast({
+        variant: 'destructive',
+        description:
+          'Error fetching questions. Sample questions will be presented.',
+      });
+
       return sampleQuestions;
     }
   };
 
   useEffect(() => {
-    if (loading && questions.length == 0) {
-      const getQuestions = async () => {
-        setLoading(true);
-        const questionsData = await fetchQuestions();
-        setQuestions(questionsData);
-        setLoading(false);
-      };
+    if (hasFetched.current) return; // Exit if already fetched
+    hasFetched.current = true; // Mark as fetched
 
-      getQuestions();
-    }
-  }, []);
+    const getQuestions = async () => {
+      setLoading(true);
+      const questionsData = await fetchQuestions();
+      setQuestions(questionsData);
+      setLoading(false);
+    };
 
-  useEffect(() => {
+    getQuestions();
+
     // Load rankings from local storage when the component mounts
     const storedRankings = localStorage.getItem('rankings');
     if (storedRankings) {
@@ -81,7 +85,6 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
   useEffect(() => {
     // Save new user to local storage if valid
     if (user.name && user.score > -1 && user.isFinalScore) {
-      // if (user.score > -1) {
       // Create a copy of the current rankings
       const updatedRankings = [...rankings];
 

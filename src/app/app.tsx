@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Toaster } from '@/components/atoms/toaster';
 import Details from '@/components/templates/details';
 import Home from '@/components/templates/home';
 import QuizManager from '@/components/templates/quizManager';
@@ -35,6 +36,7 @@ function App() {
           </div>
         </footer> */}
       </main>
+      <Toaster />
     </UserProvider>
   );
 }
