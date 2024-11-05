@@ -121,7 +121,7 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
         <QuizQuestions questions={questions} />
       ) : (
         <div className="flex flex-col gap-4 items-center">
-          <h4 className="font-heading text-white text-4xl">
+          <h4 className="font-heading text-white text-4xl text-center">
             Congrats! You scored{' '}
             <span className="text-primary">{user.score}</span> points!
           </h4>

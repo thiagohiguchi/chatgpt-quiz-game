@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/atoms/button';
 import {
@@ -54,7 +54,9 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
 
   return (
     <div className="flex flex-col gap-4 lg:gap-6 items-center justify-center min-h-full text-white">
-      <h1 className="text-white font-heading text-5xl">How the game works</h1>
+      <h1 className="text-white font-heading text-5xl text-center">
+        How the game works
+      </h1>
       <div className="text-sm max-w-8/10 mx-auto text-center">
         <p>There will be a total of ten questions.</p>
         <p>
@@ -106,7 +108,7 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
               )}
             </div>
           </div>
-          <DialogFooter className="sm:justify-center">
+          <DialogFooter className="!justify-center !items-center">
             <Button
               variant="default"
               onClick={() => setActiveComponent('quiz')}
