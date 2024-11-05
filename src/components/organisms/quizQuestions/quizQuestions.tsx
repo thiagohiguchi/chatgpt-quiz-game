@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { QuizQuestion } from "../../../lib/interfaces";
-import { Progress } from "@/components/atoms/progress";
-import { cn } from "@/lib/utils";
-import { useUser } from "../../../contexts/userContext"; // Adjust the path as necessary
+import React, { useState, useEffect } from 'react';
+import { QuizQuestion } from '../../../lib/interfaces';
+import { Progress } from '@/components/atoms/progress';
+import { cn } from '@/lib/utils';
+import { useUser } from '../../../contexts/userContext'; // Adjust the path as necessary
 
 interface QuizQuestionsProps {
   questions: QuizQuestion[];
@@ -109,15 +109,15 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
         {currentQuestion.answers.map((answer: string, index: number) => (
           <button
             className={cn(
-              "rounded p-2 border border-primary",
-              "hover:bg-primary/50 focus:bg-primary/50",
-              "text-white text-xl font-heading text-start",
+              'rounded p-2 border border-primary',
+              'hover:bg-primary/50 focus:bg-primary/50',
+              'text-white text-xl font-heading text-start',
               showingFeedback === true &&
                 index === currentQuestion.correctAnswer &&
-                "bg-lime-600/30 border-lime-600",
+                'bg-lime-600/30 border-lime-600',
               showingFeedback === true &&
                 index !== currentQuestion.correctAnswer &&
-                "bg-red-600/30 border-red-600"
+                'bg-red-600/30 border-red-600'
             )}
             onClick={() => handleAnswer(index)}
             key={index}
@@ -132,12 +132,12 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
       {showingFeedback && (
         <p
           className={cn(
-            "text-center mt-5 font-heading text-2xl",
-            !feedbackResult && "text-red-600",
-            feedbackResult && "text-lime-600"
+            'text-center mt-5 font-heading text-2xl',
+            !feedbackResult && 'text-red-600',
+            feedbackResult && 'text-lime-600'
           )}
         >
-          {feedbackResult ? "Correct!" : "Incorrect!"}
+          {feedbackResult ? 'Correct!' : 'Incorrect!'}
         </p>
       )}
     </div>

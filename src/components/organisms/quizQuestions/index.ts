@@ -1,3 +1,3 @@
-import QuizQuestions from "./quizQuestions";
+import QuizQuestions from './quizQuestions';
 
 export default QuizQuestions;

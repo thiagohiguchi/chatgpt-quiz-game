@@ -1,4 +1,4 @@
-import { UserState } from "../lib/interfaces";
+import { UserState } from '../lib/interfaces';
 import React, {
   createContext,
   useContext,
@@ -7,7 +7,7 @@ import React, {
   FC,
   Dispatch,
   SetStateAction,
-} from "react";
+} from 'react';
 
 // Define the context type
 interface UserContextType {
@@ -22,7 +22,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error("useUser must be used within a UserProvider");
+    throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 };
@@ -30,7 +30,7 @@ export const useUser = () => {
 // Create a UserProvider component
 export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserState>({
-    name: "",
+    name: '',
     score: -1,
     isFinalScore: false,
   });

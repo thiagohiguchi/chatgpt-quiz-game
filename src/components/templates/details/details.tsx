@@ -1,7 +1,8 @@
-import { Button } from "components/atoms/button";
-import { Input } from "components/atoms/input";
-import { Label } from "components/atoms/label";
-import { ActiveComponentProps } from "../../../lib/interfaces";
+import { useState } from 'react';
+import { Button } from 'components/atoms/button';
+import { Input } from 'components/atoms/input';
+import { Label } from 'components/atoms/label';
+import { ActiveComponentProps } from '../../../lib/interfaces';
 import {
   Dialog,
   DialogContent,
@@ -10,15 +11,36 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
-} from "components/atoms/dialog";
-import { useUser } from "../../../contexts/userContext"; // Adjust the path as necessary
+} from 'components/atoms/dialog';
+
+import { useUser } from '../../../contexts/userContext'; // Adjust the path as necessary
 
 const Details = ({ setActiveComponent }: ActiveComponentProps) => {
   const { user, setUser } = useUser();
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUser((prevUser) => ({ ...prevUser, name: event.target.value }));
+    const newName = event.target.value;
+    const isValid = /^[a-zA-Z0-9]+$/.test(newName);
+
+    // Validate the input
+    if (newName.trim() === '') {
+      setValidationError('Username cannot be empty.');
+    } else if (!isValid) {
+      setValidationError('Username can only contain letters and numbers.');
+    } else {
+      setValidationError(null);
+    }
+
+    // Update user state if valid or allow empty input for clearing
+    setUser((prevUser) => ({ ...prevUser, name: newName }));
+  };
+
+  // Handle enter key to submit
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !validationError) {
+      setActiveComponent('quiz');
+    }
   };
 
   return (
@@ -57,6 +79,9 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
             <DialogTitle className="text-white">
               Select your username
             </DialogTitle>
+            <DialogDescription className="text-white text-sm">
+              Use only letters and numbers
+            </DialogDescription>
           </DialogHeader>
           <div className="flex items-center space-x-2">
             <div className="grid flex-1 gap-2">
@@ -64,25 +89,23 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
                 Username
               </Label>
               <Input
+                type="text"
                 id="name"
-                defaultValue="random123"
                 value={user.name}
                 onChange={handleNameChange}
+                onKeyDown={handleKeyDown}
+                className={validationError ? 'bg-red-300 border-red-500' : ''}
               />
+              {validationError && (
+                <p className="text-red-300 text-sm">{validationError}</p>
+              )}
             </div>
-            {/* <Button type="submit" size="sm" className="px-3">
-              <span className="sr-only">Copy</span>
-            </Button> */}
           </div>
           <DialogFooter className="sm:justify-center">
-            {/* <DialogSubmit asChild>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
-            </DialogClose> */}
             <Button
               variant="default"
-              onClick={() => setActiveComponent("quiz")}
+              onClick={() => setActiveComponent('quiz')}
+              disabled={!!validationError}
             >
               start now!
             </Button>

@@ -1,8 +1,8 @@
-import { forwardRef, ComponentProps } from "react";
+import { forwardRef, ComponentProps } from 'react';
 
 const Button2 = forwardRef<
   HTMLButtonElement,
-  Omit<ComponentProps<"button">, "className">
+  Omit<ComponentProps<'button'>, 'className'>
 >(({ children, ...rest }, ref) => {
   return (
     <button

@@ -1,5 +1,5 @@
-import { Button } from "components/atoms/button";
-import { ActiveComponentProps } from "../../../lib/interfaces";
+import { Button } from 'components/atoms/button';
+import { ActiveComponentProps } from '../../../lib/interfaces';
 
 const Home = ({ setActiveComponent }: ActiveComponentProps) => {
   return (
@@ -10,7 +10,7 @@ const Home = ({ setActiveComponent }: ActiveComponentProps) => {
         clever questions across categories—race against the clock, score points,
         and show off your trivia skills!
       </p>
-      <Button variant="default" onClick={() => setActiveComponent("details")}>
+      <Button variant="default" onClick={() => setActiveComponent('details')}>
         continue
       </Button>
     </div>

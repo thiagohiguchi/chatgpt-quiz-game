@@ -1,15 +1,15 @@
-import { useUser } from "../../../contexts/userContext";
-import React, { useState, useEffect } from "react";
+import { useUser } from '../../../contexts/userContext';
+import React, { useState, useEffect } from 'react';
 // import OpenAI from "openai";
 
 import {
   ActiveComponentProps,
   QuizQuestion,
   UserState,
-} from "../../../lib/interfaces";
-import QuizQuestions from "components/organisms/quizQuestions";
-import Scoreboard from "components/molecules/scoreboard";
-import { Button } from "components/atoms/button";
+} from '../../../lib/interfaces';
+import QuizQuestions from 'components/organisms/quizQuestions';
+import Scoreboard from 'components/molecules/scoreboard';
+import { Button } from 'components/atoms/button';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
   const [rankings, setRankings] = useState<UserState[]>([]);
@@ -62,18 +62,18 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
 
   const natureQuestions: QuizQuestion[] = [
     {
-      question: "What is the largest mammal in the world?",
+      question: 'What is the largest mammal in the world?',
       correctAnswer: 0,
-      answers: ["Blue Whale", "Elephant", "Giraffe", "Hippopotamus"],
+      answers: ['Blue Whale', 'Elephant', 'Giraffe', 'Hippopotamus'],
     },
     {
-      question: "What process do plants use to convert sunlight into energy?",
+      question: 'What process do plants use to convert sunlight into energy?',
       correctAnswer: 1,
       answers: [
-        "Respiration",
-        "Photosynthesis",
-        "Transpiration",
-        "Fermentation",
+        'Respiration',
+        'Photosynthesis',
+        'Transpiration',
+        'Fermentation',
       ],
     },
     // {
@@ -126,7 +126,7 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
 
   useEffect(() => {
     // Load rankings from local storage when the component mounts
-    const storedRankings = localStorage.getItem("rankings");
+    const storedRankings = localStorage.getItem('rankings');
     if (storedRankings) {
       setRankings(JSON.parse(storedRankings));
     }
@@ -155,7 +155,7 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
 
       // Save updated rankings to local storage
       setRankings(updatedRankings);
-      localStorage.setItem("rankings", JSON.stringify(updatedRankings));
+      localStorage.setItem('rankings', JSON.stringify(updatedRankings));
     }
   }, [user.isFinalScore]); // Run this effect whenever the user prop changes
 
@@ -172,16 +172,16 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
             onClick={() => {
               setUser((prevUser) => ({
                 ...prevUser,
-                name: "",
+                name: '',
                 score: -1,
                 isFinalScore: false,
               }));
-              setActiveComponent("details");
+              setActiveComponent('details');
             }}
           >
             play again
           </Button>
-          <Button variant="outline" onClick={() => setActiveComponent("home")}>
+          <Button variant="outline" onClick={() => setActiveComponent('home')}>
             go home
           </Button>
         </div>

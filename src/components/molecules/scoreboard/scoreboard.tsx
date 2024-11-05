@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { UserState } from "../../../lib/interfaces";
+import { useEffect, useState } from 'react';
+import { UserState } from '../../../lib/interfaces';
 import {
   Table,
   TableBody,
@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "components/atoms/table";
-import { useUser } from "../../../contexts/userContext"; // Adjust the path as necessary
+} from 'components/atoms/table';
+import { useUser } from '../../../contexts/userContext'; // Adjust the path as necessary
 
 interface UserStateProps {
   rankings: UserState[];
