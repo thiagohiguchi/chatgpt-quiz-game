@@ -52,6 +52,8 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
 
       return Array.isArray(questions) ? questions : [];
     } catch (error) {
+      console.error(error);
+
       toast({
         variant: 'destructive',
         description:
