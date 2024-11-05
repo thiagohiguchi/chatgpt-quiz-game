@@ -1,15 +1,15 @@
-import { useUser } from '@/contexts/userContext';
-import React, { useState, useEffect } from 'react';
-// import OpenAI from "openai";
+import React, { useEffect,useState } from 'react';
 
+import { Button } from '@/components/atoms/button';
+import Scoreboard from '@/components/molecules/scoreboard';
+import QuizQuestions from '@/components/organisms/quizQuestions';
+import { useUser } from '@/contexts/userContext';
+// import OpenAI from "openai";
 import {
   ActiveComponentProps,
   QuizQuestion,
   UserState,
 } from '@/lib/interfaces';
-import QuizQuestions from '@/components/organisms/quizQuestions';
-import Scoreboard from '@/components/molecules/scoreboard';
-import { Button } from '@/components/atoms/button';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
   const [rankings, setRankings] = useState<UserState[]>([]);

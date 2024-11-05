@@ -1,11 +1,11 @@
-import reactHooks from 'eslint-plugin-react-hooks';
-import typescriptEslintParser from '@typescript-eslint/parser';
-import eslintPluginPrettier from 'eslint-plugin-prettier';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
-import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin';
 import js from '@eslint/js';
+import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin';
+import typescriptEslintParser from '@typescript-eslint/parser';
+import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
 
 
 export default [
@@ -58,7 +58,10 @@ export default [
       // Optional: Additional rules
       'no-duplicate-imports': 'error',
       // 'import/no-unused-modules': [1, { unusedExports: true }],
-      // 'import/no-unused-modules': [1, { unusedExports: true }], // Warn on unused exports
+      '@typescript-eslint/no-unused-vars': [
+        'error', 
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrors: 'none' } // Ignore unused vars starting with _
+      ],
 
       }
   }

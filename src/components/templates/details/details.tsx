@@ -1,8 +1,6 @@
 import { useState } from 'react';
+
 import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/input';
-import { Label } from '@/components/atoms/label';
-import { ActiveComponentProps } from '@/lib/interfaces';
 import {
   Dialog,
   DialogContent,
@@ -12,8 +10,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/atoms/dialog';
-
+import { Input } from '@/components/atoms/input';
+import { Label } from '@/components/atoms/label';
 import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
+import { ActiveComponentProps } from '@/lib/interfaces';
 
 const Details = ({ setActiveComponent }: ActiveComponentProps) => {
   const { user, setUser } = useUser();

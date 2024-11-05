@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { QuizQuestion } from '@/lib/interfaces';
+import React, { useEffect,useState } from 'react';
+
 import { Progress } from '@/components/atoms/progress';
-import { cn } from '@/lib/utils';
 import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
+import { QuizQuestion } from '@/lib/interfaces';
+import { cn } from '@/lib/utils';
 
 interface QuizQuestionsProps {
   questions: QuizQuestion[];

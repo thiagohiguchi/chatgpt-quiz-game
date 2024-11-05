@@ -1,13 +1,14 @@
-import { UserState } from '../lib/interfaces';
 import React, {
   createContext,
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
   useContext,
   useState,
-  ReactNode,
-  FC,
-  Dispatch,
-  SetStateAction,
 } from 'react';
+
+import { UserState } from '@/lib/interfaces';
 
 // Define the context type
 interface UserContextType {
