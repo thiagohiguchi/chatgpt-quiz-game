@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Button } from 'components/atoms/button';
-import { Input } from 'components/atoms/input';
-import { Label } from 'components/atoms/label';
-import { ActiveComponentProps } from '../../../lib/interfaces';
+import { Button } from '@/components/atoms/button';
+import { Input } from '@/components/atoms/input';
+import { Label } from '@/components/atoms/label';
+import { ActiveComponentProps } from '@/lib/interfaces';
 import {
   Dialog,
   DialogContent,
@@ -11,9 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from 'components/atoms/dialog';
+} from '@/components/atoms/dialog';
 
-import { useUser } from '../../../contexts/userContext'; // Adjust the path as necessary
+import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
 
 const Details = ({ setActiveComponent }: ActiveComponentProps) => {
   const { user, setUser } = useUser();
@@ -65,10 +65,6 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
       </div>
 
       <h1 className="text-white font-heading text-xl">Are you ready?</h1>
-
-      {/* <Button variant="default" onClick={() => setActiveComponent("quiz")}>
-        start now!
-      </Button> */}
 
       <Dialog>
         <DialogTrigger asChild>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { UserState } from '../../../lib/interfaces';
+import { UserState } from '@/lib/interfaces';
 import {
   Table,
   TableBody,
@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'components/atoms/table';
-import { useUser } from '../../../contexts/userContext'; // Adjust the path as necessary
+} from '@/components/atoms/table';
+import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
 
 interface UserStateProps {
   rankings: UserState[];
@@ -17,7 +17,7 @@ interface UserStateProps {
 const Scoreboard = ({ rankings }: UserStateProps) => {
   return (
     <div className="flex flex-col gap-4 lg:gap-6 items-center justify-center min-h-full text-white my-4 md:my-6">
-      <h2 className="text-white font-heading text-5xl">Scoreboard</h2>
+      <h2 className="text-white font-heading text-3xl">Scoreboard</h2>
 
       {/* {rankings.length > 0 ? 
       ( */}

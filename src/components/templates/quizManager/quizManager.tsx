@@ -1,4 +1,4 @@
-import { useUser } from '../../../contexts/userContext';
+import { useUser } from '@/contexts/userContext';
 import React, { useState, useEffect } from 'react';
 // import OpenAI from "openai";
 
@@ -6,10 +6,10 @@ import {
   ActiveComponentProps,
   QuizQuestion,
   UserState,
-} from '../../../lib/interfaces';
-import QuizQuestions from 'components/organisms/quizQuestions';
-import Scoreboard from 'components/molecules/scoreboard';
-import { Button } from 'components/atoms/button';
+} from '@/lib/interfaces';
+import QuizQuestions from '@/components/organisms/quizQuestions';
+import Scoreboard from '@/components/molecules/scoreboard';
+import { Button } from '@/components/atoms/button';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
   const [rankings, setRankings] = useState<UserState[]>([]);
@@ -165,6 +165,10 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
         <QuizQuestions questions={natureQuestions} />
       ) : (
         <div className="flex flex-col gap-4 items-center">
+          <h4 className="font-heading text-white text-4xl">
+            Congrats! You scored{' '}
+            <span className="text-primary">{user.score}</span> points!
+          </h4>
           <Scoreboard rankings={rankings} />
 
           <Button
