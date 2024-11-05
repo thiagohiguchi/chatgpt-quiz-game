@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import {
   Table,
   TableBody,
@@ -19,8 +17,6 @@ const Scoreboard = ({ rankings }: UserStateProps) => {
     <div className="flex flex-col gap-4 lg:gap-6 items-center justify-center min-h-full text-white my-4 md:my-6">
       <h2 className="text-white font-heading text-3xl">Scoreboard</h2>
 
-      {/* {rankings.length > 0 ? 
-      ( */}
       <Table>
         <TableHeader>
           <TableRow>
@@ -45,12 +41,6 @@ const Scoreboard = ({ rankings }: UserStateProps) => {
           ))}
         </TableBody>
       </Table>
-      {/* )
-       ?
-        (<p className="text-lg text-white">
-         There are no ranked players.
-       </p> )
-} */}
     </div>
   );
 };
