@@ -6,8 +6,8 @@ export interface ActiveComponentProps {
 
 export type QuizQuestion = {
   question: string;
-  correctAnswer: 0 | 1 | 2 | 3;
-  answers: [string, string, string, string];
+  correctAnswer: number;
+  answers: string[];
 };
 
 export interface UserState {

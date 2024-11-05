@@ -1,32 +1,30 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
-import { Button } from '@/components/atoms/button';
-import { Spinner } from '@/components/atoms/spinner';
-import Scoreboard from '@/components/molecules/scoreboard';
-import QuizQuestions from '@/components/organisms/quizQuestions';
-import { useUser } from '@/contexts/userContext';
-import { useToast } from '@/hooks/use-toast';
-import { PROMPT } from '@/lib/constants';
-import {
-  ActiveComponentProps,
-  QuizQuestion,
-  UserState,
-} from '@/lib/interfaces';
-import fallbackQuestions from '@/lib/sampleData.json';
-import { getRandomThemesAsString } from '@/lib/utils';
+import { Button } from 'components/atoms/button';
+import { Spinner } from 'components/atoms/spinner';
+import Scoreboard from 'components/molecules/scoreboard';
+import QuizQuestions from 'components/organisms/quizQuestions';
+import { useUser } from 'contexts/userContext';
+import { useToast } from 'hooks/use-toast';
+import { PROMPT } from 'lib/constants';
+import { ActiveComponentProps, QuizQuestion, UserState } from 'lib/interfaces';
+import fallbackQuestions from 'lib/sampleData.json';
+import { getRandomThemesAsString } from 'lib/utils';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
-  const [questions, setQuestions] = useState<UserState[]>([]);
+  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [rankings, setRankings] = useState<UserState[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // State to control re-fetching
   const hasFetched = useRef(false); // Ref to track if data has been fetched
   const { user, setUser } = useUser();
   const { toast } = useToast();
   const sampleQuestions: QuizQuestion[] = fallbackQuestions;
+
+  // dotenv.config(); // Load the environment variables from .env file
   const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
-  const fetchQuestions = async (): Promise<string[]> => {
+  const fetchQuestions = async (): Promise<QuizQuestion[]> => {
     try {
       const response = await axios.post(
         'https://api.openai.com/v1/chat/completions',

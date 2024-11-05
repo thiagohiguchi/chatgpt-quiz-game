@@ -4,10 +4,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "baseUrl": ".",
     "skipLibCheck": true,
-    "composite": true,
-    "declaration": true,
 
     /* Bundler mode */
     "moduleResolution": "Bundler",
@@ -29,8 +26,8 @@
       "app/*": ["src/app/*"],
       "components/*": ["src/components/*"],
       "hooks/*": ["src/hooks/*"],
-      "*": ["node_modules/*"],
-      "@/*": ["./src/*"]
+      "contexts/*": ["src/contexts/*"],
+      "lib/*": ["src/lib/*"]
     }
   },
   "include": ["src"]

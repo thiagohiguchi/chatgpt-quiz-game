@@ -31,5 +31,3 @@ Format the response as:
 Only one of the answers should be correct. Make the question general and suitable for all ages.
 Generate a random trivia questionnaire with the following themes:
 `;
-
-

@@ -5,8 +5,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/atoms/table';
-import { UserState } from '@/lib/interfaces';
+} from 'components/atoms/table';
+import { UserState } from 'lib/interfaces';
 
 interface UserStateProps {
   rankings: UserState[];

@@ -1,5 +1,5 @@
-import { Button } from '@/components/atoms/button';
-import { ActiveComponentProps } from '@/lib/interfaces';
+import { Button } from 'components/atoms/button';
+import { ActiveComponentProps } from 'lib/interfaces';
 
 const Home = ({ setActiveComponent }: ActiveComponentProps) => {
   return (

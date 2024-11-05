@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from 'lib/utils';
 
-const Spinner = React.forwardRef<HTMLButtonElement>(
+// Define the props type for the Spinner component
+interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string; // Optional className prop
+}
+
+const Spinner = React.forwardRef<HTMLButtonElement, SpinnerProps>(
   ({ className, ...props }, ref) => {
     return (
       <div className="text-center">

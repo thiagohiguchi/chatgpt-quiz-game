@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 
-import { UserState } from '@/lib/interfaces';
+import { UserState } from 'lib/interfaces';
 
 // Define the context type
 interface UserContextType {

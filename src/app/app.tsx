@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { Toaster } from '@/components/atoms/toaster';
-import Details from '@/components/templates/details';
-import Home from '@/components/templates/home';
-import QuizManager from '@/components/templates/quizManager';
-import { UserProvider } from '@/contexts/userContext';
-import { ActiveComponentType } from '@/lib/interfaces';
+import { Toaster } from 'components/atoms/toaster';
+import Details from 'components/templates/details';
+import Home from 'components/templates/home';
+import QuizManager from 'components/templates/quizManager';
+import { UserProvider } from 'contexts/userContext';
+import { ActiveComponentType } from 'lib/interfaces';
 
 function App() {
   const [activeComponent, setActiveComponent] =

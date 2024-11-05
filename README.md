@@ -4,7 +4,6 @@
 
 This repo organizes the source code of the trivia game using the chatGPT API.
 
-
 ## Features
 
 - [React 18](https://beta.reactjs.org/)
@@ -23,7 +22,6 @@ This repo organizes the source code of the trivia game using the chatGPT API.
 ## Dev tools
 
 - [TypeScript](https://www.typescriptlang.org/)
-
 
 ### Development
 

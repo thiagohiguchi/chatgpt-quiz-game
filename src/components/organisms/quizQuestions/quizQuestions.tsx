@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import { Progress } from '@/components/atoms/progress';
-import { useUser } from '@/contexts/userContext'; // Adjust the path as necessary
-import { TIME_TO_ANSWER_IN_MS } from '@/lib/constants';
-import { QuizQuestion } from '@/lib/interfaces';
-import { cn } from '@/lib/utils';
+import { Progress } from 'components/atoms/progress';
+import { useUser } from 'contexts/userContext'; // Adjust the path as necessary
+import { TIME_TO_ANSWER_IN_MS } from 'lib/constants';
+import { QuizQuestion } from 'lib/interfaces';
+import { cn } from 'lib/utils';
 
 interface QuizQuestionsProps {
   questions: QuizQuestion[];
