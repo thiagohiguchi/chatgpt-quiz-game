@@ -1,4 +1,4 @@
-export type ActiveComponentType = 'home' | 'quiz';
+export type ActiveComponentType = 'home' | 'quiz'| 'details';
 
 export interface ActiveComponentProps {
   setActiveComponent: (component: ActiveComponentType) => void;

@@ -10,7 +10,7 @@ interface QuizQuestionsProps {
 const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userScore, setUserScore] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(30000); // Timer starts at 30 seconds (30000 ms)
+  const [timeLeft, setTimeLeft] = useState<number>(15000); // Timer starts at 30 seconds (15000 ms)
   const [showingFeedback, setShowingFeedback] = useState<boolean>(false); // Feedback display
   const [feedbackResult, setFeedbackResult] = useState<boolean>(false); // Feedback resut
   const currentQuestion = questions[currentQuestionIndex];
@@ -18,7 +18,8 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   const handleAnswer = (answerIndex: number) => {
     if (answerIndex === currentQuestion.correctAnswer) {
       setFeedbackResult(true);
-      setUserScore(userScore + Math.floor(timeLeft / 10)); // Add to scoring removing the last digit to keep it more pleasing
+      // Points gained: 1000 + total of ms left in the clock
+      setUserScore(userScore + 1000 + Math.floor(timeLeft / 10)); // Remove the last digit from ms leftto keep it more pleasing
     } else {
       setFeedbackResult(false);
     }
@@ -34,7 +35,7 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   };
 
   const moveToNextQuestion = () => {
-    setTimeLeft(30000); // Reset timer for the next question
+    setTimeLeft(15000); // Reset timer for the next question
 
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -67,9 +68,9 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
       <div className="fixed top-0 left-0 w-full font-heading bg-black">
         <div className="layout">
           <div className="">
-            <Progress value={100 - (timeLeft / 30000) * 100} />
+            <Progress value={100 - (timeLeft / 15000) * 100} />
           </div>
-          <div className="flex flex-row justify-between py-2 text-white">
+          <div className="flex flex-row justify-between py-2 text-white text-lg">
             <div className="">
               {currentQuestionIndex + 1}/{questions.length}
             </div>
@@ -111,7 +112,7 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
       {showingFeedback && (
         <p
           className={cn(
-            "text-center mt-5  font-heading text-2xl",
+            "text-center mt-5 font-heading text-2xl",
             !feedbackResult && "text-red-600",
             feedbackResult && "text-lime-600"
           )}

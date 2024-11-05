@@ -1,16 +1,19 @@
 import { useState } from "react";
 import Home from "components/templates/home";
+import Details from "components/templates/details";
 import QuizManager from "components/templates/quizManager";
 import { ActiveComponentType } from "../lib/interfaces";
 
 function App() {
   const [activeComponent, setActiveComponent] =
-    useState<ActiveComponentType>("quiz");
+    useState<ActiveComponentType>("home");
 
   const renderView = () => {
     switch (activeComponent) {
       case "home":
         return <Home setActiveComponent={setActiveComponent} />;
+      case "details":
+        return <Details setActiveComponent={setActiveComponent} />;
       case "quiz":
         return <QuizManager setActiveComponent={setActiveComponent} />;
       default:
