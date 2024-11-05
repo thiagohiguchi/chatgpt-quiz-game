@@ -134,7 +134,7 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
 
   useEffect(() => {
     // Save new user to local storage if valid
-    if (user.name && user.score > -1) {
+    if (user.name && user.score > -1 && user.isFinalScore) {
       // if (user.score > -1) {
       // Create a copy of the current rankings
       const updatedRankings = [...rankings];
@@ -157,17 +157,28 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
       setRankings(updatedRankings);
       localStorage.setItem("rankings", JSON.stringify(updatedRankings));
     }
-  }, [user.score]); // Run this effect whenever the user prop changes
+  }, [user.isFinalScore]); // Run this effect whenever the user prop changes
 
   return (
     <div>
-      {user.score === -1 ? (
+      {!user.isFinalScore ? (
         <QuizQuestions questions={natureQuestions} />
       ) : (
         <div className="flex flex-col gap-4 items-center">
           <Scoreboard rankings={rankings} />
 
-          <Button variant="default" onClick={() => setActiveComponent("quiz")}>
+          <Button
+            variant="default"
+            onClick={() => {
+              setUser((prevUser) => ({
+                ...prevUser,
+                name: "",
+                score: -1,
+                isFinalScore: false,
+              }));
+              setActiveComponent("details");
+            }}
+          >
             play again
           </Button>
           <Button variant="outline" onClick={() => setActiveComponent("home")}>

@@ -33,8 +33,8 @@ const Scoreboard = ({ rankings }: UserStateProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {rankings.map((user) => (
-            <TableRow key={1}>
+          {rankings.map((user, index) => (
+            <TableRow key={index}>
               <TableCell className="text-md bold font-medium">
                 {user.name}
               </TableCell>

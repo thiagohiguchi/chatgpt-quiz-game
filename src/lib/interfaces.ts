@@ -13,4 +13,5 @@ export type QuizQuestion = {
 export interface UserState {
   name: string;
   score: number;
+  isFinalScore: boolean;
 }

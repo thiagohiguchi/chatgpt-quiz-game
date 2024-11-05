@@ -32,6 +32,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserState>({
     name: "",
     score: -1,
+    isFinalScore: false,
   });
 
   return (

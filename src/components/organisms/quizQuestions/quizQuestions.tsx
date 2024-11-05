@@ -14,14 +14,14 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   const [timeLeft, setTimeLeft] = useState<number>(15000); // Timer starts at 30 seconds (15000 ms)
   const [showingFeedback, setShowingFeedback] = useState<boolean>(false); // Feedback display
   const [feedbackResult, setFeedbackResult] = useState<boolean>(false); // Feedback resut
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswer = (answerIndex: number) => {
     if (answerIndex === currentQuestion.correctAnswer) {
       setFeedbackResult(true);
       // Points gained: 1000 + total of ms left in the clock
-      setUserScore(userScore + 1000 + Math.floor(timeLeft / 10)); // Remove the last digit from ms leftto keep it more pleasing
+      setUserScore((prevScore) => prevScore + 1000 + Math.floor(timeLeft / 10)); // Divide ms left to keep it more reasonable
     } else {
       setFeedbackResult(false);
     }
@@ -46,14 +46,12 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
     setTimeLeft(15000); // Reset timer for the next question
 
     if (currentQuestionIndex + 1 < questions.length) {
-      console.log("move");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      console.log("Quiz finished! Final score:", userScore);
       setUser((prevUser) => ({
         ...prevUser,
-        name: "bayyaya",
-        score: userScore,
+        name: user.name,
+        isFinalScore: true,
       }));
 
       // Additional end-of-quiz logic can go here
@@ -76,6 +74,13 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
     // Clear interval on component unmount or when timeLeft changes
     return () => clearInterval(intervalId);
   }, [currentQuestionIndex, showingFeedback]);
+
+  useEffect(() => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      score: userScore,
+    }));
+  }, [userScore, setUser]);
 
   return (
     <div className="pt-16 lg:pt-0">
