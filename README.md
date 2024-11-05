@@ -1,6 +1,6 @@
 # ChatGPT Quiz Game - Jaya
 
-> :warning: **The repo is public while being evaluated, please notify me after cloning the project, so I can change it to private.**
+> :warning: **Add yout OpenAI API key to an .env file (.local or .development), to properly request que questions. If an API key is not provided, some static questions will me used to keep the application working**
 
 This repo organizes the source code of the trivia game using the chatGPT API.
 
@@ -51,14 +51,14 @@ And you will see the generated file in `dist` that ready to be served.
 
 ## Features
 
-- Integração com a API do ChatGPT (https://api.openai.com/v1/chat/completions) com modelo (`gpt-3.5-turbo`)
-- Barra de progresso com timer para cada pergunta
-- Status geral até o final do jogo (n/10)
-- Pontuatução exibida ao logo do jogo e no final
-- Sistema de pontuação: 1000 pontos por acerto + um aditional de acordo com o tempo restante no timer
-- Placar de pontuação com persistência local
-- Opção de adicionar username
-- Username com validações
-- Interface completamente responsiva
-- Estilização com tema, para melhor customização
-- Controle de estado com hooks e Context Provider
+- Integration with the ChatGPT API (https://api.openai.com/v1/chat/completions) using the model (gpt-3.5-turbo)
+- Progress bar with a timer for each question
+- Overall status until the end of the game (n/10)
+- Scoring displayed throughout the game and at the end
+- Scoring system: 1000 points for each correct answer + an additional score based on the remaining time on the timer
+- Scoreboard with local persistence
+- Option to add a username
+- Username with validations
+- Fully responsive interface
+- Theming for better customization
+- State management with hooks and Context Provider
