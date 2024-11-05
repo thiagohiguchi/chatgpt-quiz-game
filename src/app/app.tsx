@@ -30,11 +30,6 @@ function App() {
         <section className="py-8 lg:py-20 min-h-screen grid">
           <div className="layout">{renderView()}</div>
         </section>
-        {/* <footer className="m-0 p-2 text-center text-gray-400 font-bold static bottom-0 min-w-full">
-          <div className="layout">
-            <a href="mailto:thiago.higuchi@gmail.com">by Thiago Higuchi</a>
-          </div>
-        </footer> */}
       </main>
       <Toaster />
     </UserProvider>
