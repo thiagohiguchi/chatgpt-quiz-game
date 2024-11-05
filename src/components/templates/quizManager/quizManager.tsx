@@ -1,128 +1,131 @@
-import React, { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/atoms/button';
+import { Spinner } from '@/components/atoms/spinner';
 import Scoreboard from '@/components/molecules/scoreboard';
 import QuizQuestions from '@/components/organisms/quizQuestions';
 import { useUser } from '@/contexts/userContext';
-// import OpenAI from "openai";
+import OpenAI from 'openai';
 import {
   ActiveComponentProps,
   QuizQuestion,
   UserState,
 } from '@/lib/interfaces';
+import axios from 'axios';
+import fallbackQuestions from '@/lib/sampleData.json';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
+  const [questions, setQuestions] = useState<UserState[]>([]);
   const [rankings, setRankings] = useState<UserState[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // State to control re-fetching
+  const [fetchAgain, setFetchAgain] = useState<boolean>(false); // State to control re-fetching
   const { user, setUser } = useUser();
+  const sampleQuestions: QuizQuestion[] = fallbackQuestions;
+  const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+  const prompt = `
+    Generate a random trivia questionnaire with the theme "movies".
+    The questionnaire must have 10 questions, along with 4 answer choices for each question. 
+    Only return the array in the response with no additional text, explanation, or formatting.
+    Make sure the entire response is a valid JSON array, formatted with double quotes for keys and string values. 
+    Format the response as:
+
+    [{
+      "question": string,
+      "correctAnswer": 0 | 1 | 2 | 3,
+      "answers": [string, string, string, string],
+    }]
+
+    Only one of the answers should be correct. Make the question general and suitable for all ages.
+  `;
+
+  const sanitizeJsonResponse = (jsonString: string): string | null => {
+    // Step 1: Trim whitespace and quotes
+    const trimmedString = jsonString
+      .trim()
+      .replace(/^(["'])|(["'])(?=$)/g, '')
+      .replace(/\\\"/g, '"') // Replace escaped double quotes
+      .replace(/\\\\/g, '\\') // Replace double backslashes
+      .replace(/'/g, '"'); // Replace single quotes with double quotes, if needed
+
+    // Step 2: Check for valid structure
+    if (
+      !(trimmedString.startsWith('[') && trimmedString.endsWith(']')) &&
+      !(trimmedString.startsWith('{') && trimmedString.endsWith('}'))
+    ) {
+      console.error(
+        'Invalid JSON format: must start with [ or { and end with ] or }',
+        trimmedString
+      );
+      return null;
+    }
+
+    // Step 3: Replace single quotes with double quotes
+    const replacedQuotesString = trimmedString.replace(/'/g, '"');
+
+    // Step 4: Escape double quotes and backslashes
+    const escapedString = replacedQuotesString
+      .replace(/\\/g, '\\\\') // Escape backslashes
+      .replace(/"/g, '\\"'); // Escape double quotes
+
+    return escapedString;
+  };
 
   // // Set up your OpenAI API key
-  // const openai = new OpenAI({
-  //   apiKey:
-  //     "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",
-  //   dangerouslyAllowBrowser: true,
-  // });
+  const fetchQuestions = async (): Promise<string[]> => {
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: prompt },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-  // // Function to generate a themed question with multiple-choice answers
-  // async function generateQuestion(theme: string): Promise<string> {
-  //   // Update the prompt to include the theme
-  //   const prompt = `
-  //   Generate a random trivia question with the theme "${theme}" along with 5 answer choices. Format the response as:
+      const messageContent = response.data.choices[0].message.content;
 
-  //   Question: <question text>
-  //   A. <Answer 1>
-  //   B. <Answer 2>
-  //   C. <Answer 3>
-  //   D. <Answer 4>
-  //   E. <Answer 5>
+      // console.log(`messageContent`, messageContent);
+      // Attempt to parse the response if it's a JSON array
+      // const questions = JSON.parse(messageContent) as QuizQuestion[];
+      const questions: QuizQuestion[] = JSON.parse(
+        sanitizeJsonResponse(messageContent)
+      );
 
-  //   Only one of the answers should be correct. Make the question general and suitable for all ages.
-  // `;
+      // if (!messageContent || messageContent.trim() === '' || !messageContent.trim().startsWith('[') || !messageContent.trim().endsWith(']')) {
+      //   console.error("Invalid JSON format: must be a non-empty string representing an array.");
+      //   return null;
+      // }
 
-  //   try {
-  //     const response = await openai.createChatCompletion({
-  //       model: "gpt-4",
-  //       messages: [{ role: "user", content: prompt }],
-  //       max_tokens: 150,
-  //       temperature: 0.7,
-  //     });
+      console.log('questions', questions);
+      // If parsing fails, return a default array or handle the error as needed
+      return Array.isArray(questions) ? questions : [];
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+      return sampleQuestions;
+    }
+  };
 
-  //     // Extract and return the generated question and answers
-  //     const questionAndAnswers = response.data.choices[0].message?.content;
-  //     return questionAndAnswers || "No question generated";
-  //   } catch (error) {
-  //     console.error("Error generating question:", error);
-  //     return "Error generating question";
-  //   }
-  // }
+  useEffect(() => {
+    if (loading && questions.length == 0) {
+      const getQuestions = async () => {
+        setLoading(true);
+        const questionsData = await fetchQuestions();
+        setQuestions(questionsData);
+        // throw Error('e');
+        setLoading(false);
+      };
 
-  // // Example usage with a theme
-  // generateQuestion("science").then((question) => {
-  //   console.log(question);
-  // });
-
-  const natureQuestions: QuizQuestion[] = [
-    {
-      question: 'What is the largest mammal in the world?',
-      correctAnswer: 0,
-      answers: ['Blue Whale', 'Elephant', 'Giraffe', 'Hippopotamus'],
-    },
-    {
-      question: 'What process do plants use to convert sunlight into energy?',
-      correctAnswer: 1,
-      answers: [
-        'Respiration',
-        'Photosynthesis',
-        'Transpiration',
-        'Fermentation',
-      ],
-    },
-    // {
-    //   question: "Which gas do plants absorb from the atmosphere?",
-    //   correctAnswer: 2,
-    //   answers: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
-    // },
-    // {
-    //   question: "What is the tallest tree species in the world?",
-    //   correctAnswer: 3,
-    //   answers: ["Redwood", "Pine", "Oak", "Coast Redwood"],
-    // },
-    // {
-    //   question: "Which of the following is not a biome?",
-    //   correctAnswer: 0,
-    //   answers: ["Desertification", "Tundra", "Rainforest", "Savanna"],
-    // },
-    // {
-    //   question: "What is the primary component of Earth's atmosphere?",
-    //   correctAnswer: 2,
-    //   answers: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"],
-    // },
-    // {
-    //   question:
-    //     "Which animal is known for its ability to change color for camouflage?",
-    //   correctAnswer: 2,
-    //   answers: ["Chameleon", "Octopus", "Both A and B", "Cuttlefish"],
-    // },
-    // {
-    //   question: "What type of rock is formed from cooled magma?",
-    //   correctAnswer: 0,
-    //   answers: ["Igneous", "Sedimentary", "Metamorphic", "Fossilized"],
-    // },
-    // {
-    //   question: "Which ocean is the largest on Earth?",
-    //   correctAnswer: 1,
-    //   answers: [
-    //     "Atlantic Ocean",
-    //     "Pacific Ocean",
-    //     "Indian Ocean",
-    //     "Arctic Ocean",
-    //   ],
-    // },
-    // {
-    //   question: "What is the most abundant element in the universe?",
-    //   correctAnswer: 3,
-    //   answers: ["Oxygen", "Carbon", "Iron", "Hydrogen"],
-    // },
-  ];
+      getQuestions();
+    }
+  }, []);
 
   useEffect(() => {
     // Load rankings from local storage when the component mounts
@@ -161,8 +164,15 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
 
   return (
     <div>
-      {!user.isFinalScore ? (
-        <QuizQuestions questions={natureQuestions} />
+      {loading ? (
+        <div className="flex flex-col items-center gap-6">
+          <h4 className="text-white font-heading text-xl">
+            Loading questions, wait a minute
+          </h4>
+          <Spinner />
+        </div>
+      ) : !user.isFinalScore && questions ? (
+        <QuizQuestions questions={questions} />
       ) : (
         <div className="flex flex-col gap-4 items-center">
           <h4 className="font-heading text-white text-4xl">

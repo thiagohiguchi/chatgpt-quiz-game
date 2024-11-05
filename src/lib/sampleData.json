@@ -1,0 +1,102 @@
+[
+  {
+    "question": "Which year did World War II end?",
+    "correctAnswer": 2,
+    "answers": [
+      "1943",
+      "1950",
+      "1945",
+      "1960"
+    ]
+  },
+  {
+    "question": "Who was the first President of the United States?",
+    "correctAnswer": 0,
+    "answers": [
+      "George Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Abraham Lincoln"
+    ]
+  },
+  {
+    "question": "In what year did the Titanic sink?",
+    "correctAnswer": 3,
+    "answers": [
+      "1905",
+      "1910",
+      "1925",
+      "1912"
+    ]
+  },
+  {
+    "question": "Who wrote the famous play 'Romeo and Juliet'?",
+    "correctAnswer": 1,
+    "answers": [
+      "Charles Dickens",
+      "William Shakespeare",
+      "Jane Austen",
+      "Mark Twain"
+    ]
+  },
+  {
+    "question": "What year did Nelson Mandela become the President of South Africa?",
+    "correctAnswer": 0,
+    "answers": [
+      "1994",
+      "2000",
+      "1985",
+      "1990"
+    ]
+  },
+  {
+    "question": "Which ancient civilization built the famous pyramids in Egypt?",
+    "correctAnswer": 2,
+    "answers": [
+      "Mayans",
+      "Romans",
+      "Egyptians",
+      "Greeks"
+    ]
+  },
+  {
+    "question": "Who was known as the 'Maid of Orleans' and a heroine of France?",
+    "correctAnswer": 3,
+    "answers": [
+      "Queen Elizabeth I",
+      "Cleopatra",
+      "Catherine the Great",
+      "Joan of Arc"
+    ]
+  },
+  {
+    "question": "What event marked the beginning of the French Revolution?",
+    "correctAnswer": 1,
+    "answers": [
+      "Storming of the Bastille",
+      "Execution of Louis XVI",
+      "Reign of Terror",
+      "Battle of Waterloo"
+    ]
+  },
+  {
+    "question": "Which city was the capital of the Byzantine Empire?",
+    "correctAnswer": 0,
+    "answers": [
+      "Constantinople",
+      "Rome",
+      "Athens",
+      "Paris"
+    ]
+  },
+  {
+    "question": "Who was the first female Prime Minister of the United Kingdom?",
+    "correctAnswer": 2,
+    "answers": [
+      "Margaret Thatcher",
+      "Theresa May",
+      "Indira Gandhi",
+      "Angela Merkel"
+    ]
+  }
+]
