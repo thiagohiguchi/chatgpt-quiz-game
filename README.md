@@ -4,7 +4,7 @@
 
 This repo organizes the source code of the trivia game using the chatGPT API.
 
-## Features
+## Stack
 
 - [React 18](https://beta.reactjs.org/)
 - TypeScript, of course
@@ -48,3 +48,17 @@ yarn build
 ```
 
 And you will see the generated file in `dist` that ready to be served.
+
+## Features
+
+- Integração com a API do ChatGPT (https://api.openai.com/v1/chat/completions) com modelo (`gpt-3.5-turbo`)
+- Barra de progresso com timer para cada pergunta
+- Status geral até o final do jogo (n/10)
+- Pontuatução exibida ao logo do jogo e no final
+- Sistema de pontuação: 1000 pontos por acerto + um aditional de acordo com o tempo restante no timer
+- Placar de pontuação com persistência local
+- Opção de adicionar username
+- Username com validações
+- Interface completamente responsiva
+- Estilização com tema, para melhor customização
+- Controle de estado com hooks e Context Provider
