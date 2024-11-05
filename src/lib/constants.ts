@@ -1,6 +1,6 @@
-export const NUM_QUESTIONS: number = 2;
+export const NUM_QUESTIONS: number = 10;
 
-export const NUM_ANSWERS: number = 10;
+export const NUM_ANSWERS: number = 4;
 
 export const TIME_TO_ANSWER_IN_MS: number = 15000;
 
