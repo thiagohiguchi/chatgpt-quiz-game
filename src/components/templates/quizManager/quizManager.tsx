@@ -22,7 +22,7 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
   const sampleQuestions: QuizQuestion[] = fallbackQuestions;
   const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
   const prompt = `
-    Generate a random trivia questionnaire with the theme "movies".
+    Generate a random trivia questionnaire with the following themes nature, science, countries, movies, curiosity, planets, foods, simple math, and fun facts.
     The questionnaire must have 10 questions, along with 4 answer choices for each question. 
     Only return the array in the response with no additional text, explanation, or formatting.
     Make sure the entire response is a valid JSON array, formatted with double quotes for keys and string values. 

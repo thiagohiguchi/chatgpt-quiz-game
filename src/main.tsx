@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import './index.css';
 
 import App from 'app/app';
