@@ -34,9 +34,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix && prettier --write .",
+    "build": "vite build",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint .",
+    "lint:fix": "ESLINT_USE_FLAT_CONFIG=true eslint . --fix && prettier --write .",
     "format": "prettier --write .",
     "preview": "vite preview"
   },

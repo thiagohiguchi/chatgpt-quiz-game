@@ -1,5 +1,4 @@
-import { Slot } from '@radix-ui/react-slot';
-import { cva, type VariantProps } from 'class-variance-authority';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';

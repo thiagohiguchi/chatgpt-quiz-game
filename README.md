@@ -33,6 +33,14 @@ Just run and visit http://127.0.0.1:3000/
 yarn dev
 ```
 
+### Linting
+
+```bash
+yarn lint
+yarn lint:fix
+yarn format
+```
+
 ### Build
 
 To build the App, run
