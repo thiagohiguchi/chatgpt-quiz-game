@@ -11,7 +11,7 @@ export default defineConfig(() => {
     server: {
       port: 3000,
     },
-    resolve: {
+    resolve: { 
       alias: {
         '@': resolve(__dirname, './src'),
         app: resolve(__dirname, 'src', 'app'),
