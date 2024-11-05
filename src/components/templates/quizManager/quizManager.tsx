@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/atoms/button';
@@ -5,13 +6,11 @@ import { Spinner } from '@/components/atoms/spinner';
 import Scoreboard from '@/components/molecules/scoreboard';
 import QuizQuestions from '@/components/organisms/quizQuestions';
 import { useUser } from '@/contexts/userContext';
-import OpenAI from 'openai';
 import {
   ActiveComponentProps,
   QuizQuestion,
   UserState,
 } from '@/lib/interfaces';
-import axios from 'axios';
 import fallbackQuestions from '@/lib/sampleData.json';
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
