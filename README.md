@@ -4,6 +4,8 @@
 
 This repo organizes the source code of the trivia game using the chatGPT API.
 
+[Live Demo](https://thiagohiguchi.github.io/chatgpt-quiz-game/)
+
 ## Stack
 
 - [React 18](https://beta.reactjs.org/)

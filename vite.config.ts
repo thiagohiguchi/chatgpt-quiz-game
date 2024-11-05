@@ -6,6 +6,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: "/chatgpt-quiz-game",
     plugins: [react()],
     server: {
       port: 3000,
