@@ -1,10 +1,20 @@
+import { useUser } from "../../../contexts/userContext";
+import React, { useState, useEffect } from "react";
 // import OpenAI from "openai";
 
-import { ActiveComponentProps, QuizQuestion } from "../../../lib/interfaces";
+import {
+  ActiveComponentProps,
+  QuizQuestion,
+  UserState,
+} from "../../../lib/interfaces";
 import QuizQuestions from "components/organisms/quizQuestions";
 import Scoreboard from "components/molecules/scoreboard";
+import { Button } from "components/atoms/button";
 
 const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
+  const [rankings, setRankings] = useState<UserState[]>([]);
+  const { user, setUser } = useUser();
+
   // // Set up your OpenAI API key
   // const openai = new OpenAI({
   //   apiKey:
@@ -66,58 +76,105 @@ const QuizManager = ({ setActiveComponent }: ActiveComponentProps) => {
         "Fermentation",
       ],
     },
-    {
-      question: "Which gas do plants absorb from the atmosphere?",
-      correctAnswer: 2,
-      answers: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
-    },
-    {
-      question: "What is the tallest tree species in the world?",
-      correctAnswer: 3,
-      answers: ["Redwood", "Pine", "Oak", "Coast Redwood"],
-    },
-    {
-      question: "Which of the following is not a biome?",
-      correctAnswer: 0,
-      answers: ["Desertification", "Tundra", "Rainforest", "Savanna"],
-    },
-    {
-      question: "What is the primary component of Earth's atmosphere?",
-      correctAnswer: 2,
-      answers: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"],
-    },
-    {
-      question:
-        "Which animal is known for its ability to change color for camouflage?",
-      correctAnswer: 2,
-      answers: ["Chameleon", "Octopus", "Both A and B", "Cuttlefish"],
-    },
-    {
-      question: "What type of rock is formed from cooled magma?",
-      correctAnswer: 0,
-      answers: ["Igneous", "Sedimentary", "Metamorphic", "Fossilized"],
-    },
-    {
-      question: "Which ocean is the largest on Earth?",
-      correctAnswer: 1,
-      answers: [
-        "Atlantic Ocean",
-        "Pacific Ocean",
-        "Indian Ocean",
-        "Arctic Ocean",
-      ],
-    },
-    {
-      question: "What is the most abundant element in the universe?",
-      correctAnswer: 3,
-      answers: ["Oxygen", "Carbon", "Iron", "Hydrogen"],
-    },
+    // {
+    //   question: "Which gas do plants absorb from the atmosphere?",
+    //   correctAnswer: 2,
+    //   answers: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+    // },
+    // {
+    //   question: "What is the tallest tree species in the world?",
+    //   correctAnswer: 3,
+    //   answers: ["Redwood", "Pine", "Oak", "Coast Redwood"],
+    // },
+    // {
+    //   question: "Which of the following is not a biome?",
+    //   correctAnswer: 0,
+    //   answers: ["Desertification", "Tundra", "Rainforest", "Savanna"],
+    // },
+    // {
+    //   question: "What is the primary component of Earth's atmosphere?",
+    //   correctAnswer: 2,
+    //   answers: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"],
+    // },
+    // {
+    //   question:
+    //     "Which animal is known for its ability to change color for camouflage?",
+    //   correctAnswer: 2,
+    //   answers: ["Chameleon", "Octopus", "Both A and B", "Cuttlefish"],
+    // },
+    // {
+    //   question: "What type of rock is formed from cooled magma?",
+    //   correctAnswer: 0,
+    //   answers: ["Igneous", "Sedimentary", "Metamorphic", "Fossilized"],
+    // },
+    // {
+    //   question: "Which ocean is the largest on Earth?",
+    //   correctAnswer: 1,
+    //   answers: [
+    //     "Atlantic Ocean",
+    //     "Pacific Ocean",
+    //     "Indian Ocean",
+    //     "Arctic Ocean",
+    //   ],
+    // },
+    // {
+    //   question: "What is the most abundant element in the universe?",
+    //   correctAnswer: 3,
+    //   answers: ["Oxygen", "Carbon", "Iron", "Hydrogen"],
+    // },
   ];
 
+  useEffect(() => {
+    // Load rankings from local storage when the component mounts
+    const storedRankings = localStorage.getItem("rankings");
+    if (storedRankings) {
+      setRankings(JSON.parse(storedRankings));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save new user to local storage if valid
+    if (user.name && user.score > -1) {
+      // if (user.score > -1) {
+      // Create a copy of the current rankings
+      const updatedRankings = [...rankings];
+
+      // Insert the new user at the correct position
+      const newUser = user;
+      let insertIndex = updatedRankings.length; // Default to the end
+
+      for (let i = 0; i < updatedRankings.length; i++) {
+        if (newUser.score > updatedRankings[i].score) {
+          insertIndex = i;
+          break;
+        }
+      }
+
+      // Insert the new user into the sorted rankings
+      updatedRankings.splice(insertIndex, 0, newUser);
+
+      // Save updated rankings to local storage
+      setRankings(updatedRankings);
+      localStorage.setItem("rankings", JSON.stringify(updatedRankings));
+    }
+  }, [user.score]); // Run this effect whenever the user prop changes
+
   return (
-    <div className="">
-      <QuizQuestions questions={natureQuestions} />
-      {/* <Scoreboard /> */}
+    <div>
+      {user.score === -1 ? (
+        <QuizQuestions questions={natureQuestions} />
+      ) : (
+        <div className="flex flex-col gap-4 items-center">
+          <Scoreboard rankings={rankings} />
+
+          <Button variant="default" onClick={() => setActiveComponent("quiz")}>
+            play again
+          </Button>
+          <Button variant="outline" onClick={() => setActiveComponent("home")}>
+            go home
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

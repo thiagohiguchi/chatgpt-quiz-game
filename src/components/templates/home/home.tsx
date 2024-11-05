@@ -10,11 +10,7 @@ const Home = ({ setActiveComponent }: ActiveComponentProps) => {
         clever questions across categories—race against the clock, score points,
         and show off your trivia skills!
       </p>
-      <Button
-        variant="default"
-        className="font-heading tracking-widest uppercase"
-        onClick={() => setActiveComponent("details")}
-      >
+      <Button variant="default" onClick={() => setActiveComponent("details")}>
         continue
       </Button>
     </div>

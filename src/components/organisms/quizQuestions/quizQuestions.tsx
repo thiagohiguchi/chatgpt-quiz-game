@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { QuizQuestion } from "../../../lib/interfaces";
 import { Progress } from "@/components/atoms/progress";
 import { cn } from "@/lib/utils";
+import { useUser } from "../../../contexts/userContext"; // Adjust the path as necessary
 
 interface QuizQuestionsProps {
   questions: QuizQuestion[];
@@ -13,6 +14,7 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
   const [timeLeft, setTimeLeft] = useState<number>(15000); // Timer starts at 30 seconds (15000 ms)
   const [showingFeedback, setShowingFeedback] = useState<boolean>(false); // Feedback display
   const [feedbackResult, setFeedbackResult] = useState<boolean>(false); // Feedback resut
+  const { setUser } = useUser();
   const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswer = (answerIndex: number) => {
@@ -27,6 +29,12 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
     // Set feedback mode to true, which pauses the timer
     setShowingFeedback(true);
 
+    // If is last show scoreboard
+    // if (currentQuestionIndex === questions.length - 1) {
+    //   console.log("foi");
+    //   moveToNextQuestion();
+    // }
+
     // Show feedback for 2 seconds, then move to the next question
     setTimeout(() => {
       setShowingFeedback(false);
@@ -38,9 +46,16 @@ const QuizQuestions = ({ questions }: QuizQuestionsProps) => {
     setTimeLeft(15000); // Reset timer for the next question
 
     if (currentQuestionIndex + 1 < questions.length) {
+      console.log("move");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       console.log("Quiz finished! Final score:", userScore);
+      setUser((prevUser) => ({
+        ...prevUser,
+        name: "bayyaya",
+        score: userScore,
+      }));
+
       // Additional end-of-quiz logic can go here
     }
   };

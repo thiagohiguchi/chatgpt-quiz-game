@@ -25,11 +25,7 @@ const Details = ({ setActiveComponent }: ActiveComponentProps) => {
 
       <h1 className="text-white font-heading text-xl">Are you ready?</h1>
 
-      <Button
-        variant="default"
-        className="font-heading tracking-widest uppercase"
-        onClick={() => setActiveComponent("quiz")}
-      >
+      <Button variant="default" onClick={() => setActiveComponent("quiz")}>
         start now!
       </Button>
     </div>
