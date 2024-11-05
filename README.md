@@ -20,19 +20,10 @@ This repo organizes the source code of the trivia game using the chatGPT API.
 - [ESLint](https://eslint.org/) - configured for React/Hooks & TypeScript
 - [Prettier](https://prettier.io/)
 
-### Dev tools
+## Dev tools
 
 - [TypeScript](https://www.typescriptlang.org/)
 
-
-## Try it now!
-
-### GitHub Template
-
-[Create a repo from this template on GitHub](https://github.com/jvidalv/vital/generate).
-
-
-## Usage
 
 ### Development
 
